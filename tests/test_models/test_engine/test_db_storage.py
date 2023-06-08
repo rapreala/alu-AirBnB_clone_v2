@@ -105,13 +105,13 @@ class TestDBStorage(unittest.TestCase):
         self.assertTrue(hasattr(DBStorage, "reload"))
 
     @unittest.skipIf(type(models.storage) == FileStorage,
-                     "Testing FileStorage")
+        "Testing FileStorage")
     def test_init(self):
         """Test initialization."""
         self.assertTrue(isinstance(self.storage, DBStorage))
 
     @unittest.skipIf(type(models.storage) == FileStorage,
-                     "Testing FileStorage")
+        "Testing FileStorage")
     def test_all(self):
         """Test default all method."""
         obj = self.storage.all()
@@ -119,7 +119,7 @@ class TestDBStorage(unittest.TestCase):
         self.assertEqual(len(obj), 6)
 
     @unittest.skipIf(type(models.storage) == FileStorage,
-                     "Testing FileStorage")
+        "Testing FileStorage")
     def test_all_cls(self):
         """Test all method with specified cls."""
         obj = self.storage.all(State)
@@ -128,7 +128,7 @@ class TestDBStorage(unittest.TestCase):
         self.assertEqual(self.state, list(obj.values())[0])
 
     @unittest.skipIf(type(models.storage) == FileStorage,
-                     "Testing FileStorage")
+        "Testing FileStorage")
     def test_new(self):
         """Test new method."""
         st = State(name="Washington")
@@ -137,7 +137,7 @@ class TestDBStorage(unittest.TestCase):
         self.assertIn(st, store)
 
     @unittest.skipIf(type(models.storage) == FileStorage,
-                     "Testing FileStorage")
+        "Testing FileStorage")
     def test_save(self):
         """Test save method."""
         st = State(name="Virginia")
@@ -154,7 +154,7 @@ class TestDBStorage(unittest.TestCase):
         cursor.close()
 
     @unittest.skipIf(type(models.storage) == FileStorage,
-                     "Testing FileStorage")
+        "Testing FileStorage")
     def test_delete(self):
         """Test delete method."""
         st = State(name="New_York")
@@ -164,7 +164,7 @@ class TestDBStorage(unittest.TestCase):
         self.assertIn(st, list(self.storage._DBStorage__session.deleted))
 
     @unittest.skipIf(type(models.storage) == FileStorage,
-                     "Testing FileStorage")
+        "Testing FileStorage")
     def test_delete_none(self):
         """Test delete method with None."""
         try:
@@ -173,7 +173,7 @@ class TestDBStorage(unittest.TestCase):
             self.fail
 
     @unittest.skipIf(type(models.storage) == FileStorage,
-                     "Testing FileStorage")
+        "Testing FileStorage")
     def test_reload(self):
         """Test reload method."""
         og_session = self.storage._DBStorage__session
