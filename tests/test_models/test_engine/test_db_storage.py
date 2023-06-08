@@ -5,7 +5,7 @@ import models
 import MySQLdb
 import unittest
 from os import getenv
-from models.base_model import Base
+from models import Base
 from models.user import User
 from models.state import State
 from models.city import City
