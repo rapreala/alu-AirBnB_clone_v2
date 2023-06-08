@@ -31,7 +31,7 @@ class TestDBStorage(unittest.TestCase):
         """
         if type(models.storage) == DBStorage:
             cls.storage = DBStorage()
-            Base.metadata.create_all(cls.storage._DBStorage__engine)
+            BaseModel.metadata.create_all(cls.storage._DBStorage__engine)
             Session = sessionmaker(bind=cls.storage._DBStorage__engine)
             cls.storage._DBStorage__session = Session()
             cls.state = State(name="California")
