@@ -6,7 +6,7 @@ from console import HBNBCommand
 from unittest.mock import patch
 from io import StringIO
 import models
-
+from models.state import State
 
 class ConsoleTestCase(unittest.TestCase):
     """Test for console"""
