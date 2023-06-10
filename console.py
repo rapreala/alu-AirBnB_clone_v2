@@ -115,58 +115,40 @@ class HBNBCommand(cmd.Cmd):
         pass
 
     def do_create(self, args):
-        """Create an object of any class"""
+        """ Create an object of any class"""
         if not args:
             print("** class name missing **")
             return
-        
-        # Split the arguments by spaces
-        arg_list = args.split()
-        class_name = arg_list[0]
-        if class_name not in HBNBCommand.classes:
+
+        args = args.split(" ")
+        if args[0] not in HBNBCommand.classes:
             print("** class doesn't exist **")
             return
-    
-        # Create a dictionary to store the parameters
-        params = {}
-        for param in arg_list[1:]:
-            # Split each parameter by "=" to get the key and value
-            key_value = param.split("=")
-            if len(key_value) != 2:
-                continue
-            key = key_value[0]
-            value = key_value[1]
+        new_instance = HBNBCommand.classes[args[0]]()
 
-            # Process the value based on its syntax
-            if value.startswith('"') and value.endswith('"'):
-                # String value
-                value = value[1:-1].replace('_', ' ')
-            elif '.' in value:
-                # Float value
-                try:
-                    value = float(value)
-                except ValueError:
-                    continue
+        for pair in args[1:]:
+            attr = pair.split("=", maxsplit=1)
+            key = attr[0]
+            value = ""
+            if attr[1][0] == '\"':
+                value = attr[1][1:-1].replace("_", " ").replace('"', '\"')
             else:
-                # Integer value
-                try:
-                    value = int(value)
-                except ValueError:
-                    continue
-
-            # Add the processed parameter to the dictionary
-            params[key] = value
-        
-        # Set the 'created_at' and 'updated_at' parameters to the current datetime as strings
-        current_datetime = datetime.now().strftime('%Y-%m-%dT%H:%M:%S.%f')
-        params['created_at'] = current_datetime
-        params['updated_at'] = current_datetime
-        
-        # Create an instance of the class with the given parameters
-        new_instance = HBNBCommand.classes[class_name](**params)
-        storage.save()
+                if '.' in attr[1]:
+                    try:
+                        value = float(attr[1])
+                    except(SyntaxError, NameError):
+                        pass
+                else:
+                    try:
+                        value = int(attr[1])
+                    except(SyntaxError, NameError):
+                        pass
+            if value != "":
+                setattr(new_instance, key, value)
+            else:
+                pass
+        new_instance.save()
         print(new_instance.id)
-        storage.save()
 
     def help_create(self):
         """ Help information for the create method """
