@@ -14,19 +14,19 @@ from models.review import Review
 
 class DBStorage:
     """The new database storage class"""
-    _engine = None
-    _session = None
+    __engine = None
+    __session = None
 
     def __init__(self):
         """Initialize the DBStorage class"""
-        self._engine = create_engine('mysql+mysqldb://{}:{}@{}:3306/{}'
-                                     .format(os.getenv('HBNB_MYSQL_USER'),
-                                             os.getenv('HBNB_MYSQL_PWD'),
-                                             os.getenv('HBNB_MYSQL_HOST'),
-                                             os.getenv('HBNB_MYSQL_DB')),
-                                     pool_pre_ping=True)
+        self.__engine = create_engine('mysql+mysqldb://{}:{}@{}:3306/{}'
+                                      .format(os.getenv('HBNB_MYSQL_USER'),
+                                              os.getenv('HBNB_MYSQL_PWD'),
+                                              os.getenv('HBNB_MYSQL_HOST'),
+                                              os.getenv('HBNB_MYSQL_DB')),
+                                      pool_pre_ping=True)
         if os.getenv('HBNB_ENV') == 'test':
-            Base.metadata.drop_all(self._engine)
+            Base.metadata.drop_all(self.__engine)
 
     def all(self, cls=None):
         """Returns a dictionary of all objects"""
@@ -34,36 +34,36 @@ class DBStorage:
         new_dict = {}
         if cls is None:
             for c in classes:
-                for obj in self._session.query(c).all():
+                for obj in self.__session.query(c).all():
                     key = obj.__class__.__name__ + '.' + obj.id
                     new_dict[key] = obj
         else:
-            for obj in self._session.query(cls).all():
+            for obj in self.__session.query(cls).all():
                 key = obj.__class__.__name__ + '.' + obj.id
                 new_dict[key] = obj
         return new_dict
 
     def new(self, obj):
         """Adds a new object to the database"""
-        self._session.add(obj)
+        self.__session.add(obj)
 
     def save(self):
         """Saves all changes to the database"""
-        self._session.commit()
+        self.__session.commit()
 
     def delete(self, obj=None):
         """Deletes an object from the database"""
         if obj is not None:
-            self._session.delete(obj)
+            self.__session.delete(obj)
 
     def reload(self):
         """Reloads all tables"""
-        Base.metadata.create_all(self._engine)
-        session_factory = sessionmaker(bind=self._engine,
+        Base.metadata.create_all(self.__engine)
+        session_factory = sessionmaker(bind=self.__engine,
                                        expire_on_commit=False)
         Session = scoped_session(session_factory)
-        self._session = Session()
+        self.__session = Session()
 
     def close(self):
         """Close the session"""
-        self._session.close()
+        self.__session.close()
