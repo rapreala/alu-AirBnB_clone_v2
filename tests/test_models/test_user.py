@@ -7,6 +7,12 @@ from models.user import User
 class test_User(test_basemodel):
     """ """
 
+    def test_str(self):
+        """ """
+        new = self.value()
+        expected_str = '[User] ({}) {}'.format(new.id, new.__dict__)
+        self.assertEqual(str(new), expected_str)
+
     def __init__(self, *args, **kwargs):
         """ """
         super().__init__(*args, **kwargs)
@@ -32,9 +38,3 @@ class test_User(test_basemodel):
         """ """
         new = self.value()
         self.assertEqual(type(new.password), str)
-    
-    def test_str(self):
-    """ """
-    new = self.value()
-    expected_str = '[User] ({}) {}'.format(new.id, new.__dict__)
-    self.assertEqual(str(new), expected_str)

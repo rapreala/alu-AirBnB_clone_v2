@@ -29,12 +29,13 @@ class test_fileStorage(unittest.TestCase):
     def test_new(self):
         """New object is correctly added to __objects"""
         new = BaseModel()
+        obj_id = new.id
         temp = None
         for obj in storage.all().values():
-            temp = obj
-            break
-        self.assertTrue(temp is new, "New object is not correctly added to __objects")
-
+            if obj.id == obj_id:
+                temp = obj
+                break
+        self.assertIs(temp, new, "New object is not correctly added to __objects")
 
     def test_all(self):
         """__objects is properly returned"""
@@ -63,14 +64,20 @@ class test_fileStorage(unittest.TestCase):
 
     def test_reload(self):
         """Storage file is successfully loaded to __objects"""
-        new = BaseModel()
-        storage.save()
+        # Save some data to the storage file before reloading
+        BaseModel().save()
+
+        # Clear the objects in memory and reload from the storage file
+        storage._FileStorage__objects = {}
         storage.reload()
-        loaded = None
-        for obj in storage.all().values():
-            loaded = obj
-            break
-        self.assertEqual(new.to_dict()['id'], loaded.to_dict()['id'])
+
+        # Check if the data was loaded correctly
+        objects = storage.all().values()
+        self.assertTrue(len(objects) == 1, "Data was not loaded correctly from the storage file")
+
+        loaded = list(objects)[0]
+        new = BaseModel()
+        self.assertEqual(new.id, loaded.id, "Loaded object does not match the new object")
 
     def test_reload_empty(self):
         """Load from an empty file"""
@@ -100,7 +107,7 @@ class test_fileStorage(unittest.TestCase):
     def test_key_format(self):
         """Key is properly formatted"""
         new = BaseModel()
-        _id = new.to_dict()['id']
+        _id = new.id
         temp = None
         for key in storage.all().keys():
             temp = key
