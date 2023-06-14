@@ -33,7 +33,8 @@ class test_fileStorage(unittest.TestCase):
         for obj in storage.all().values():
             temp = obj
             break
-        self.assertTrue(temp is new)
+        self.assertTrue(temp is new, "New object is not correctly added to __objects")
+
 
     def test_all(self):
         """__objects is properly returned"""
@@ -104,7 +105,7 @@ class test_fileStorage(unittest.TestCase):
         for key in storage.all().keys():
             temp = key
             break
-        self.assertEqual(temp, 'BaseModel' + '.' + _id)
+        self.assertEqual(temp, 'BaseModel' + '.' + _id, "Key is not properly formatted")
 
     def test_storage_var_created(self):
         """FileStorage object storage created"""
