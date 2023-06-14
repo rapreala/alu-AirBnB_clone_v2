@@ -66,3 +66,7 @@ class FileStorage:
                 if (obj_dic[key] == obj):
                     del obj_dic[key]
                     break
+    
+    def close(self):
+        """Calls the reload method of FileStorage"""
+        self.reload()
