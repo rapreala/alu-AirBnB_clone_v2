@@ -9,7 +9,7 @@ class FileStorage:
     __objects = {}
 
     def all(self, cls=None):
-        """Returns a dictionary of models currently in storage"""
+        """Returns a dictionary or list of models currently in storage"""
         if cls is None:
             return FileStorage.__objects
         else:
@@ -20,12 +20,12 @@ class FileStorage:
             return cls_objects
 
     def new(self, obj):
-        """Adds new object to storage dictionary"""
+        """Adds a new object to the storage dictionary"""
         key = "{}.{}".format(obj.__class__.__name__, obj.id)
         FileStorage.__objects[key] = obj
 
     def save(self):
-        """Saves storage dictionary to file"""
+        """Saves the storage dictionary to a file"""
         temp = {}
         for key, obj in FileStorage.__objects.items():
             temp[key] = obj.to_dict()
@@ -33,7 +33,7 @@ class FileStorage:
             json.dump(temp, f)
 
     def reload(self):
-        """Loads storage dictionary from file"""
+        """Loads the storage dictionary from a file"""
         from models.base_model import BaseModel
         from models.user import User
         from models.place import Place
