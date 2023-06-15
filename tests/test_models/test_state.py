@@ -24,10 +24,10 @@ class TestState(test_basemodel):
         state.name = "California"
         self.assertEqual(state.name, "California")
 
-    @unittest.skip("Skipping test_str")
-    def test_str(self):
+    @unittest.skip("Skipping test_updated_at")
+    def test_updated_at(self):
         """
-        Test the __str__ method of State
+        Test the updated_at attribute of State
         """
         pass
 
