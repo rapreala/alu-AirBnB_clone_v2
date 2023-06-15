@@ -64,7 +64,7 @@ class ConsoleTestCase(unittest.TestCase):
         state_id = self.stdout.getvalue()[:-1]
         with patch('sys.stdout', self.stdout):
             self.console.onecmd(
-            'update State {} name "New California"'.format(state_id))
+                'update State {} name "New California"'.format(state_id))
         with patch('sys.stdout', self.stdout):
             self.console.onecmd('show State {}'.format(state_id))
         self.assertIn("New California", self.stdout.getvalue())
