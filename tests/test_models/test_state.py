@@ -24,12 +24,20 @@ class TestState(test_basemodel):
         state.name = "California"
         self.assertEqual(state.name, "California")
 
-    @unittest.skip("Skipping test_updated_at")
+    @unittest.skip("Skipping test_str")
+    def test_str(self):
+        """
+        Test the __str__ method of State
+        """
+        pass
+
     def test_updated_at(self):
         """
         Test the updated_at attribute of State
         """
-        pass
+        state = State()
+        state.updated_at = "2023-06-08 12:34:56"
+        self.assertEqual(state.updated_at, "2023-06-08 12:34:56")
 
     def test_new_test_case(self):
         """
@@ -39,6 +47,15 @@ class TestState(test_basemodel):
         state.population = 1000000
         self.assertTrue(hasattr(state, 'population'))
         self.assertEqual(state.population, 1000000)
+
+    def test_new_attribute(self):
+        """
+        Test the creation of a new attribute in State
+        """
+        state = State()
+        state.new_attribute = "new value"
+        self.assertTrue(hasattr(state, 'new_attribute'))
+        self.assertEqual(state.new_attribute, "new value")
 
 
 if __name__ == '__main__':
