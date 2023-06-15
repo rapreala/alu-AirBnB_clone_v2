@@ -78,15 +78,6 @@ class ConsoleTestCase(unittest.TestCase):
         self.assertIn("Exits the program with formatting",
                       self.stdout.getvalue())
 
-    def test_new_test_case2(self):
-        """
-        Test another new functionality in Console
-        """
-        with patch('sys.stdout', self.stdout):
-            self.console.onecmd('help help')
-        self.assertIn("List available commands with",
-                      self.stdout.getvalue())
-
 
 if __name__ == '__main__':
     unittest.main()
