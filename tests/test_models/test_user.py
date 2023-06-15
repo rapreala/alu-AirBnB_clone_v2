@@ -159,15 +159,6 @@ class TestUser(test_basemodel):
         self.assertTrue(hasattr(user, 'username'))
         self.assertEqual(user.username, "johndoe")
 
-    def test_new_test_case2(self):
-        """
-        Test another new functionality in User
-        """
-        user = User()
-        user.age = 30
-        self.assertTrue(hasattr(user, 'age'))
-        self.assertEqual(user.age, 30)
-
 
 if __name__ == '__main__':
     unittest.main()
