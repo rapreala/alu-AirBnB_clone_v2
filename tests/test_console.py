@@ -83,7 +83,7 @@ class ConsoleTestCase(unittest.TestCase):
         """
         with patch('sys.stdout', self.stdout):
             self.console.onecmd('help quit')
-        self.assertIn("Quit command to exit", self.stdout.getvalue())
+        self.assertIn("Exits the program with formatting", self.stdout.getvalue())
 
 
 if __name__ == '__main__':
