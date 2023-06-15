@@ -32,12 +32,14 @@ class TestFileStorage(unittest.TestCase):
         """
         self.assertEqual(len(storage.all()), 0)
 
-    @unittest.skip("Skipping test_new")
     def test_new(self):
         """
         New object is correctly added to __objects
         """
-        pass
+        obj = BaseModel()
+        storage.new(obj)
+        key = "{}.{}".format(obj.__class__.__name__, obj.id)
+        self.assertIn(key, storage.all())
 
     def test_all(self):
         """
@@ -72,12 +74,15 @@ class TestFileStorage(unittest.TestCase):
         storage.save()
         self.assertTrue(os.path.exists('file.json'))
 
-    @unittest.skip("Skipping test_reload")
     def test_reload(self):
         """
         Storage file is successfully loaded to __objects
         """
-        pass
+        new = BaseModel()
+        storage.save()
+        storage.reload()
+        key = "{}.{}".format(new.__class__.__name__, new.id)
+        self.assertIn(key, storage.all())
 
     def test_reload_empty(self):
         """
@@ -92,7 +97,7 @@ class TestFileStorage(unittest.TestCase):
         """
         Nothing happens if file does not exist
         """
-        self.assertEqual(storage.reload(), None)
+        self.assertIsNone(storage.reload())
 
     def test_base_model_save(self):
         """
@@ -102,31 +107,20 @@ class TestFileStorage(unittest.TestCase):
         new.save()
         self.assertTrue(os.path.exists('file.json'))
 
-    def test_type_path(self):
-        """
-        Confirm __file_path is string
-        """
-        self.assertEqual(type(storage._FileStorage__file_path), str)
-
-    def test_type_objects(self):
-        """
-        Confirm __objects is a dict
-        """
-        self.assertEqual(type(storage.all()), dict)
-
-    @unittest.skip("Skipping test_key_format")
     def test_key_format(self):
         """
         Key is properly formatted
         """
-        pass
+        obj = BaseModel()
+        key = "{}.{}".format(obj.__class__.__name__, obj.id)
+        self.assertEqual(key, obj.__class__.__name__ + '.' + obj.id)
 
     def test_storage_var_created(self):
         """
         FileStorage object storage created
         """
         from models.engine.file_storage import FileStorage
-        self.assertEqual(type(storage), FileStorage)
+        self.assertIsInstance(storage, FileStorage)
 
 
 if __name__ == '__main__':

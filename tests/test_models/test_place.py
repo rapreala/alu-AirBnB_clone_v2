@@ -16,89 +16,104 @@ class TestPlace(test_basemodel):
         self.name = "Place"
         self.value = Place
 
-    @unittest.skip("Skipping test_city_id")
     def test_city_id(self):
         """
         Test the city_id attribute of Place
         """
-        pass
+        place = Place()
+        place.city_id = "abc123"
+        self.assertEqual(place.city_id, "abc123")
 
-    @unittest.skip("Skipping test_name")
     def test_name(self):
         """
         Test the name attribute of Place
         """
-        pass
+        place = Place()
+        place.name = "Sample Place"
+        self.assertEqual(place.name, "Sample Place")
 
-    @unittest.skip("Skipping test_description")
     def test_description(self):
         """
         Test the description attribute of Place
         """
-        pass
+        place = Place()
+        place.description = "This is a sample place."
+        self.assertEqual(place.description, "This is a sample place.")
 
-    @unittest.skip("Skipping test_number_rooms")
     def test_number_rooms(self):
         """
         Test the number_rooms attribute of Place
         """
-        pass
+        place = Place()
+        place.number_rooms = 5
+        self.assertEqual(place.number_rooms, 5)
 
-    @unittest.skip("Skipping test_number_bathrooms")
     def test_number_bathrooms(self):
         """
         Test the number_bathrooms attribute of Place
         """
-        pass
+        place = Place()
+        place.number_bathrooms = 3
+        self.assertEqual(place.number_bathrooms, 3)
 
-    @unittest.skip("Skipping test_max_guest")
     def test_max_guest(self):
         """
         Test the max_guest attribute of Place
         """
-        pass
+        place = Place()
+        place.max_guest = 10
+        self.assertEqual(place.max_guest, 10)
 
-    @unittest.skip("Skipping test_price_by_night")
     def test_price_by_night(self):
         """
         Test the price_by_night attribute of Place
         """
-        pass
+        place = Place()
+        place.price_by_night = 100.0
+        self.assertEqual(place.price_by_night, 100.0)
 
-    @unittest.skip("Skipping test_latitude")
     def test_latitude(self):
         """
         Test the latitude attribute of Place
         """
-        pass
+        place = Place()
+        place.latitude = 40.12345
+        self.assertEqual(place.latitude, 40.12345)
 
-    @unittest.skip("Skipping test_longitude")
     def test_longitude(self):
         """
         Test the longitude attribute of Place
         """
-        pass
+        place = Place()
+        place.longitude = -73.98765
+        self.assertEqual(place.longitude, -73.98765)
 
-    @unittest.skip("Skipping test_amenity_ids")
     def test_amenity_ids(self):
         """
         Test the amenity_ids attribute of Place
         """
-        pass
+        place = Place()
+        amenity_ids = [1, 2, 3]
+        place.amenity_ids = amenity_ids
+        self.assertEqual(place.amenity_ids, amenity_ids)
 
-    @unittest.skip("Skipping test_user_id")
     def test_user_id(self):
         """
         Test the user_id attribute of Place
         """
-        pass
+        place = Place()
+        place.user_id = "xyz456"
+        self.assertEqual(place.user_id, "xyz456")
 
-    @unittest.skip("Skipping test_str")
     def test_str(self):
         """
         Test the __str__ method of Place
         """
-        pass
+        place = Place()
+        place.city_id = "abc123"
+        place.name = "Sample Place"
+        string = str(place)
+        self.assertEqual(string, f"[{self.name}] ({place.id}) {place.__dict__}")
 
 
 if __name__ == '__main__':

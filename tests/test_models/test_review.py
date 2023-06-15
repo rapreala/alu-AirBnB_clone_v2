@@ -16,33 +16,40 @@ class TestReview(test_basemodel):
         self.name = "Review"
         self.value = Review
 
-    @unittest.skip("Skipping test_place_id")
     def test_place_id(self):
         """
         Test the place_id attribute of Review
         """
-        pass
+        review = Review()
+        review.place_id = "abc123"
+        self.assertEqual(review.place_id, "abc123")
 
-    @unittest.skip("Skipping test_user_id")
     def test_user_id(self):
         """
         Test the user_id attribute of Review
         """
-        pass
+        review = Review()
+        review.user_id = "xyz456"
+        self.assertEqual(review.user_id, "xyz456")
 
-    @unittest.skip("Skipping test_text")
     def test_text(self):
         """
         Test the text attribute of Review
         """
-        pass
+        review = Review()
+        review.text = "This is a review."
+        self.assertEqual(review.text, "This is a review.")
 
-    @unittest.skip("Skipping test_str")
     def test_str(self):
         """
         Test the __str__ method of Review
         """
-        pass
+        review = Review()
+        review.place_id = "abc123"
+        review.user_id = "xyz456"
+        review.text = "This is a review."
+        string = str(review)
+        self.assertEqual(string, f"[{self.name}] ({review.id}) {review.__dict__}")
 
 
 if __name__ == '__main__':

@@ -16,26 +16,28 @@ class TestAmenity(test_basemodel):
         self.name = "Amenity"
         self.value = Amenity
 
-    @unittest.skip("Skipping test_save")
     def test_save(self):
         """
         Test the save method of Amenity
         """
-        pass
+        amenity = self.value()
+        amenity.save()
+        self.assertIsNotNone(amenity.updated_at)
 
-    @unittest.skip("Skipping test_name2")
     def test_name2(self):
         """
         Test the name attribute of Amenity
         """
-        pass
+        amenity = self.value()
+        self.assertEqual(amenity.name, "")
 
-    @unittest.skip("Skipping test_str")
     def test_str(self):
         """
         Test the __str__ method of Amenity
         """
-        pass
+        amenity = self.value()
+        expected_str = "[Amenity] ({}) {}".format(amenity.id, amenity.__dict__)
+        self.assertEqual(str(amenity), expected_str)
 
 
 if __name__ == '__main__':

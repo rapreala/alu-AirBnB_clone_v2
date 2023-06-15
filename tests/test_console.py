@@ -19,12 +19,15 @@ class ConsoleTestCase(unittest.TestCase):
         del self.stdout
         del self.storage
 
-    @unittest.skip("Skipping test_create")
     def test_create(self):
         """
         test create basic
         """
-        pass
+        with patch('sys.stdout', self.stdout):
+            self.console.onecmd('create State')
+        state_id = self.stdout.getvalue()[:-1]
+        self.assertIsNotNone(
+            self.storage.all()["State.{}".format(state_id)])
 
     def test_create_save(self):
         """
@@ -44,23 +47,37 @@ class ConsoleTestCase(unittest.TestCase):
             self.console.onecmd('create MyModel')
         self.assertEqual("** class doesn't exist **\n", self.stdout.getvalue())
 
-    @unittest.skip("Skipping test_all")
     def test_all(self):
         """
         test all
         """
-        pass
+        with patch('sys.stdout', self.stdout):
+            self.console.onecmd('all State')
+        self.assertIn("State", self.stdout.getvalue())
 
-    @unittest.skip("Skipping test_update")
     def test_update(self):
-        pass
+        """
+        test update
+        """
+        with patch('sys.stdout', self.stdout):
+            self.console.onecmd('create State name="California"')
+        state_id = self.stdout.getvalue()[:-1]
+        with patch('sys.stdout', self.stdout):
+            self.console.onecmd('update State {} name "New California"'.format(state_id))
+        with patch('sys.stdout', self.stdout):
+            self.console.onecmd('show State {}'.format(state_id))
+        self.assertIn("New California", self.stdout.getvalue())
 
-    @unittest.skip("Skipping test_show")
     def test_show(self):
         """
         test show
         """
-        pass
+        with patch('sys.stdout', self.stdout):
+            self.console.onecmd('create State name="California"')
+        state_id = self.stdout.getvalue()[:-1]
+        with patch('sys.stdout', self.stdout):
+            self.console.onecmd('show State {}'.format(state_id))
+        self.assertIn("California", self.stdout.getvalue())
 
 
 if __name__ == '__main__':

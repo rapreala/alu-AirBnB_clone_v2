@@ -16,26 +16,31 @@ class TestCity(test_basemodel):
         self.name = "City"
         self.value = City
 
-    @unittest.skip("Skipping test_state_id")
     def test_state_id(self):
         """
         Test the state_id attribute of City
         """
-        pass
+        city = City()
+        city.state_id = "abc123"
+        self.assertEqual(city.state_id, "abc123")
 
-    @unittest.skip("Skipping test_name")
     def test_name(self):
         """
         Test the name attribute of City
         """
-        pass
+        city = City()
+        city.name = "Sample City"
+        self.assertEqual(city.name, "Sample City")
 
-    @unittest.skip("Skipping test_str")
     def test_str(self):
         """
         Test the __str__ method of City
         """
-        pass
+        city = City()
+        city.state_id = "abc123"
+        city.name = "Sample City"
+        string = str(city)
+        self.assertEqual(string, f"[{self.name}] ({city.id}) {city.__dict__}")
 
 
 if __name__ == '__main__':

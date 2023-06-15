@@ -16,19 +16,22 @@ class TestState(test_basemodel):
         self.name = "State"
         self.value = State
 
-    @unittest.skip("Skipping test_name3")
     def test_name3(self):
         """
         Test the name attribute of State
         """
-        pass
+        state = State()
+        state.name = "California"
+        self.assertEqual(state.name, "California")
 
-    @unittest.skip("Skipping test_str")
     def test_str(self):
         """
         Test the __str__ method of State
         """
-        pass
+        state = State()
+        state.name = "California"
+        string = str(state)
+        self.assertEqual(string, f"[{self.name}] ({state.id}) {state.__dict__}")
 
 
 if __name__ == '__main__':

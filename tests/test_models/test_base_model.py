@@ -47,10 +47,11 @@ class test_basemodel(unittest.TestCase):
         with self.assertRaises(TypeError):
             new = BaseModel(**copy)
 
-    @unittest.skip("Skipping test_save")
     def test_save(self):
         """ Testing save """
-        pass
+        i = self.value()
+        i.save()
+        self.assertTrue(os.path.exists('file.json'))
 
     def test_str(self):
         """ """
