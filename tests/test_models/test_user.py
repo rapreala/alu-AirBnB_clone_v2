@@ -2,6 +2,7 @@ import unittest
 from tests.test_models.test_base_model import test_basemodel
 from models.user import User
 
+
 class TestUser(test_basemodel):
     """
     TestUser class to test the User class
@@ -15,103 +16,128 @@ class TestUser(test_basemodel):
         self.name = "User"
         self.value = User()
 
-    @unittest.skip("Skipping test_str")
     def test_str(self):
         """
         Test the __str__ method of User
         """
-        pass
+        user = User()
+        string = str(user)
+        self.assertEqual(string, f"[{self.name}] ({user.id}) {user.__dict__}")
 
-    @unittest.skip("Skipping test_first_name")
     def test_first_name(self):
         """
         Test the first_name attribute of User
         """
-        pass
+        user = User()
+        user.first_name = "John"
+        self.assertEqual(user.first_name, "John")
 
-    @unittest.skip("Skipping test_last_name")
     def test_last_name(self):
         """
         Test the last_name attribute of User
         """
-        pass
+        user = User()
+        user.last_name = "Doe"
+        self.assertEqual(user.last_name, "Doe")
 
-    @unittest.skip("Skipping test_email")
     def test_email(self):
         """
         Test the email attribute of User
         """
-        pass
+        user = User()
+        user.email = "johndoe@example.com"
+        self.assertEqual(user.email, "johndoe@example.com")
 
-    @unittest.skip("Skipping test_password")
     def test_password(self):
         """
         Test the password attribute of User
         """
-        pass
+        user = User()
+        user.password = "password123"
+        self.assertEqual(user.password, "password123")
 
-    @unittest.skip("Skipping test_default")
     def test_default(self):
         """
         Test the default attribute values of User
         """
-        pass
+        user = User()
+        self.assertEqual(user.first_name, "")
+        self.assertEqual(user.last_name, "")
+        self.assertEqual(user.email, "")
+        self.assertEqual(user.password, "")
 
-    @unittest.skip("Skipping test_kwargs")
     def test_kwargs(self):
         """
         Test the instantiation of User with kwargs
         """
-        pass
+        kwargs = {
+            'first_name': 'John',
+            'last_name': 'Doe',
+            'email': 'johndoe@example.com',
+            'password': 'password123'
+        }
+        user = User(**kwargs)
+        self.assertEqual(user.first_name, "John")
+        self.assertEqual(user.last_name, "Doe")
+        self.assertEqual(user.email, "johndoe@example.com")
+        self.assertEqual(user.password, "password123")
 
-    @unittest.skip("Skipping test_kwargs_int")
     def test_kwargs_int(self):
         """
         Test the instantiation of User with kwargs containing int
         """
-        pass
+        kwargs = {
+            'first_name': 'John',
+            'last_name': 'Doe',
+            'email': 'johndoe@example.com',
+            'password': 'password123',
+            'age': 25
+        }
+        with self.assertRaises(TypeError):
+            user = User(**kwargs)
 
-    @unittest.skip("Skipping test_save")
     def test_save(self):
         """
         Test the save method of User
         """
-        pass
+        user = User()
+        user.save()
+        self.assertIsNotNone(user.updated_at)
 
-    @unittest.skip("Skipping test_todict")
     def test_todict(self):
         """
         Test the to_dict method of User
         """
-        pass
+        user = User()
+        user.first_name = "John"
+        user.last_name = "Doe"
+        user.email = "johndoe@example.com"
+        user.password = "password123"
+        user_dict = user.to_dict()
+        self.assertEqual(user_dict['first_name'], "John")
+        self.assertEqual(user_dict['last_name'], "Doe")
+        self.assertEqual(user_dict['email'], "johndoe@example.com")
+        self.assertEqual(user_dict['password'], "password123")
 
-    @unittest.skip("Skipping test_created_at")
-    def test_created_at(self):
+    def test_new_attribute(self):
         """
-        Test the created_at attribute of User
+        Test the creation of a new attribute in User
         """
-        pass
+        user = User()
+        user.new_attribute = "new value"
+        self.assertTrue(hasattr(user, 'new_attribute'))
+        self.assertEqual(user.new_attribute, "new value")
 
-    @unittest.skip("Skipping test_id")
-    def test_id(self):
+    def test_delete_attribute(self):
         """
-        Test the id attribute of User
+        Test the deletion of an attribute in User
         """
-        pass
+        user = User()
+        user.new_attribute = "new value"
+        self.assertTrue(hasattr(user, 'new_attribute'))
+        delattr(user, 'new_attribute')
+        self.assertFalse(hasattr(user, 'new_attribute'))
 
-    @unittest.skip("Skipping test_kwargs_one")
-    def test_kwargs_one(self):
-        """
-        Test the instantiation of User with kwargs containing one attribute
-        """
-        pass
-
-    @unittest.skip("Skipping test_updated_at")
-    def test_updated_at(self):
-        """
-        Test the updated_at attribute of User
-        """
-        pass
 
 if __name__ == '__main__':
     unittest.main()
