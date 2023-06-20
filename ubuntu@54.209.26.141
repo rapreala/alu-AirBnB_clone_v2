@@ -11,7 +11,7 @@ sudo mkdir -p /data/web_static/releases/test/
 sudo mkdir -p /data/web_static/shared/
 
 # Create a fake HTML file for testing
-echo "<html><head></head><body>Testing Nginx Configuration</body></html>" | sudo tee /data/web_static/releases/test/index.html > /dev/null
+echo "<html><head></head><body>Holberton School</body></html>" | sudo tee /data/web_static/releases/test/index.html > /dev/null
 
 # Create or recreate the symbolic link
 if [ -L /data/web_static/current ]; then
