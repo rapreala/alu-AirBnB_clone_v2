@@ -1,3 +1,6 @@
+#!/usr/bin/env bash
+# import fabric module
+
 from fabric.api import local
 from datetime import datetime
 
